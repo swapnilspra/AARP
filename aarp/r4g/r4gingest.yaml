@@ -1,0 +1,25 @@
+# r4gingest property file
+
+localpath: /dev/aarp-landing/R4G/R4G-Airflow
+remotedir: /R4G
+host: "ftp2.omniture.com"
+user: "production@aarp.com"
+pwd: "C@serta!23"
+timeoutsecs: 3600
+notebookpath: /Users/production@aarp.com/R4G/R4G_Lake
+localfile: "LOCALOFFERS"
+localschema: "LocalOffers_schema.json"
+auctionfile: "AUCTIONUSAGE"
+auctionschema: "Auctions_schema.json"
+merchfile: "MERCHANDISEUSAGE"
+merchschema: "Merchandise_schema.json"
+pointfile: "POINTDEPOSITS"
+pointschema: "PointDeposits_schema.json"
+promofile: "PROMOCODEUSAGE"
+promoschema: "PromoCodeUsage_schema.json"
+regfile: "REGISTRATIONS"
+regschema: "Registrations_schema.json"
+sweepfile: "SWEEPSTAKEUSAGE"
+sweepschema: "Sweeptstakes_schema.json"
+travelfile: "TRAVELBOOKINGS"
+travelschema: "Travel_schema.json"

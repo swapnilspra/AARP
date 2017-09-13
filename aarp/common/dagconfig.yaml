@@ -1,0 +1,39 @@
+DEV:
+  submiturl : "https://dbc-db50c5d5-5ae4.cloud.databricks.com/devapi/2.0/"
+  cluster_name: "dev_cluster"
+  landingPath: ""
+  datalakePath: ""
+  archivalPath: ""
+  ima:
+    fcom:
+       pathDataLakeImax: "/mnt/datalake/devimax/"
+       pathLandingImax: "/mnt/landing/testimax/"
+       notebook_path: "/Users/swapnil.prabhu@casertaconcepts.com/fcom/fcom_devlanding_ingest"
+
+PRODUCTION:
+  submiturl : "https://dbc-db50c5d5-5ae4.cloud.databricks.com/prodapi/2.0/"
+  cluster_name: "dev_cluster"
+  landingPath: ""
+  datalakePath: ""
+  archivalPath: ""
+  ima:
+    fcom:
+       pathDataLakeImax: "/mnt/datalake/imax/"
+       pathLandingImax: "/mnt/landing/imax/"
+       notebook_path: "/Users/swapnil.prabhu@casertaconcepts.com/fcom/fcom_prodlanding_ingest"
+
+
+QA:
+  submiturl : "https://dbc-db50c5d5-5ae4.cloud.databricks.com/qaapi/2.0/"
+  cluster_name: "prod_cluster"
+  landingPath: ""
+  datalakePath: ""
+  archivalPath: ""
+  ima:
+    fcom:
+       pathDataLakeImax: "/mnt/datalake/qaimax/"
+       pathLandingImax: "/mnt/landing/qaimax/"
+       notebook_path: "/Users/swapnil.prabhu@casertaconcepts.com/fcom/fcom_qalanding_ingest"
+
+
+
