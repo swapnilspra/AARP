@@ -9,12 +9,6 @@ from aarp.adobe.landing import extractTar
 from aarp.adobe.lake import startAdobeLakeJob, startUTCJob
 from aarp.r4g.r4gingest import import filelanding,checkclusterstatus,jobrun
 
-import yaml
-
-
-with open('aarp/r4g/r4gingest.yaml') as f:
-        CONFIG = yaml.load(f)
-f.close()
 
 # adding customised parameters
 dag = DAG(
@@ -22,35 +16,6 @@ dag = DAG(
     start_date=datetime(2017,6,15),
     catchup= False,
     schedule_interval='@daily')
-
-# t1 = BashOperator(
-#     task_id='doubleclick_ingest',
-#     bash_command='python /data/airflow/pythonscripts/doubleclick_file_transfer.py',
-#     dag=dag)
-#
-# t2 = PythonOperator(
-#     task_id='doubleclick_impressions',
-#     python_callable=createCluster,
-#     dag=dag
-# )
-#
-# t3 = PythonOperator(
-#     task_id='doubleclick_click',
-#     python_callable=createCluster,
-#     dag=dag
-# )
-#
-# t4 = PythonOperator(
-#     task_id='doubleclick_activity',
-#     python_callable=createCluster,
-#     dag=dag
-# )
-#
-# t5 = PythonOperator(
-#     task_id='doubleclick_archive',
-#     python_callable=createCluster,
-#     dag=dag
-# )
 
 adobe1 = PythonOperator(
     task_id='adobe_untar',
@@ -70,28 +35,15 @@ adobe3 = PythonOperator(
     dag=dag
 )
 
-r4g1 = PythonOperator(
+r4g_ingest = PythonOperator(
     task_id='r4g_file_landing',
     python_callable=filelanding,
     dag=dag
 )
 
-r4g2 = PythonOperator(
-    task_id='r4g_check_cluster',
-    python_callable=checkclusterstatus,
-    dag=dag
-)
-
-
-jobrunjson = {
-    "clusterid":r4g2.python_callable,
-    "filetype" : CONFIG['localfile'],
-    "schemaname":CONFIG['localschema']
-    }
-
-r4g_job1 = PythonOperator(
-    task_id='jobrun_task3',
-    python_callable=jobrun(jobrunjson),
+r4g_local = PythonOperator(
+    task_id='r4g_local_load',
+    python_callable=jobrun('local'),
     dag = dag
 )
 
@@ -198,14 +150,3 @@ r4g_job6.set_upstream(r4g2)
 r4g_job7.set_upstream(r4g2)
 r4g_job8.set_upstream(r4g2)
 
-
-#####  Below part is added by khounish for testing configurable items
-
-
-
-# t2.set_upstream(t1)
-# t3.set_upstream(t1)
-# t4.set_upstream(t1)
-# t5.set_upstream(t2)
-# t5.set_upstream(t3)
-# t5.set_upstream(t4)

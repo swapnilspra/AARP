@@ -4,11 +4,43 @@ DEV:
   landingPath: ""
   datalakePath: ""
   archivalPath: ""
-  ima:
+  imax:
     fcom:
        pathDataLakeImax: "/mnt/datalake/devimax/"
        pathLandingImax: "/mnt/landing/testimax/"
        notebook_path: "/Users/swapnil.prabhu@casertaconcepts.com/fcom/fcom_devlanding_ingest"
+  r4g:  
+    localpath: /dev/aarp-landing/R4G/R4G-Airflow
+    remotedir: /R4G
+    host: "ftp2.omniture.com"
+    user: "production@aarp.com"
+    pwd: "C@serta!23"
+    timeoutsecs: 3600
+    notebookpath: "/Users/production@aarp.com/R4G/R4G_Lake"
+    local:
+         file: "LOCALOFFERS"
+         schema: "LocalOffers_schema.json"
+    auction:
+         file: "AUCTIONUSAGE"
+         schema: "Auctions_schema.json"
+    merch:
+         file: "MERCHANDISEUSAGE"
+         schema: "Merchandise_schema.json"
+    point:
+         file: "POINTDEPOSITS"
+         schema: "PointDeposits_schema.json"
+    promo:
+         file: "PROMOCODEUSAGE"
+         schema: "PromoCodeUsage_schema.json"
+    reg:
+         file: "REGISTRATIONS"
+         schema: "Registrations_schema.json"
+    sweep:
+         file: "SWEEPSTAKEUSAGE"
+         schema: "Sweeptstakes_schema.json"
+    travel:
+         file: "TRAVELBOOKINGS"
+         schema: "Travel_schema.json"
 
 PRODUCTION:
   submiturl : "https://dbc-db50c5d5-5ae4.cloud.databricks.com/prodapi/2.0/"
@@ -16,7 +48,7 @@ PRODUCTION:
   landingPath: ""
   datalakePath: ""
   archivalPath: ""
-  ima:
+  imax:
     fcom:
        pathDataLakeImax: "/mnt/datalake/imax/"
        pathLandingImax: "/mnt/landing/imax/"
@@ -29,7 +61,7 @@ QA:
   landingPath: ""
   datalakePath: ""
   archivalPath: ""
-  ima:
+  imax:
     fcom:
        pathDataLakeImax: "/mnt/datalake/qaimax/"
        pathLandingImax: "/mnt/landing/qaimax/"
