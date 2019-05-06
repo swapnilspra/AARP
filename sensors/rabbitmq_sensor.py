@@ -51,21 +51,24 @@ class RabbitMQSensor(BaseSensorOperator):
         channel = connection.channel()
         channel.queue_declare(queue=QUEUE, durable=True)
         method_frame, header_frame, body = channel.basic_get(QUEUE)
-##        if method_frame:
-        LOGGER.info('Received message # %s from %s: %s',
+        if method_frame:
+          LOGGER.info('Received message # %s from %s: %s',
                         method_frame, header_frame, body)
-        #channel.basic_ack(method_frame.delivery_tag)
-        jsonMsg = json.loads(body)
-        #self.fileGroup = json.dumps(jsonMsg['filegroup'])
-        self.taskId = "mediametrics."+ jsonMsg['taskId']
-        LOGGER.info("Json msg: %s ",self.taskId)
-        #Variable.set(self.taskId,self.fileGroup)
-        Variable.set('mediametrics.branch.route', "trigger_"+jsonMsg['taskId']+"_dag")
-        Variable.set('mediametrics.branch.route', jsonMsg['taskId']+"_dag")
-        LOGGER.info('Set to trigger: %s', self.taskId)
+          channel.basic_ack(method_frame.delivery_tag)
+          jsonMsgfilter=body.replace("\xc2\xa0", " ") 
+          jsonMsgfinalfilter=jsonMsg.replace("\r\n", " ")
+          jsonMsgfinalbody=jsonMsgfinalfilter.replace("\n", " ") 
+          jsonMsg = json.loads(jsonMsgfinalbody)
+          self.fileGroup = json.dumps(jsonMsg['filegroup'])
+          self.taskId = "mediametrics."+ jsonMsg['taskId']
+          LOGGER.info("Json msg: %s ",self.taskId)
+          Variable.set(self.taskId,self.fileGroup)
+          Variable.set('mediametrics.branch.route', "trigger_"+jsonMsg['taskId']+"_dag")
+          Variable.set('mediametrics.branch.route', jsonMsg['taskId']+"_dag")
+          LOGGER.info('Set to trigger: %s', self.taskId)
 
-        return True
-        #else:
-            #print('No message returned')
-            #LOGGER.info('No message returned')
-            #return False
+          return True
+         else:
+            print('No message returned')
+            LOGGER.info('No message returned')
+            return False
